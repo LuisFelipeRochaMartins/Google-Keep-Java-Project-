@@ -56,7 +56,7 @@ public class PessoaDTO {
 
 	@Override
 	public String toString() {
-		final StringBuilder sb = new StringBuilder("Marca{");
+		final StringBuilder sb = new StringBuilder("Pessoa{");
 		sb.append("nome='").append(nome).append('\'');
 		sb.append(", sobrenome='").append(sobrenome).append('\'');
 		sb.append(", email='").append(email).append('\'');

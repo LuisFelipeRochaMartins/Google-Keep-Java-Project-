@@ -8,36 +8,38 @@ public class PessoaBO {
 
     public boolean inserir(PessoaDTO pessoaDTO) {
         if (existe(pessoaDTO) != true) {
-            PessoaDAO marcasDAO = new PessoaDAO();
-            return marcasDAO.inserir(pessoaDTO);
+            PessoaDAO PessoaDAO = new PessoaDAO();
+            return PessoaDAO.inserir(pessoaDTO);
         }
         return false;
     }
 
     public boolean existe(PessoaDTO pessoaDTO) {
-        PessoaDAO marcasDAO = new PessoaDAO();
-        return marcasDAO.existe(pessoaDTO);
+        PessoaDAO PessoaDAO = new PessoaDAO();
+        return PessoaDAO.existe(pessoaDTO);
+    }
+
+    public boolean alterar(PessoaDTO pessoaDTO) {
+        PessoaDAO PessoaDAO = new PessoaDAO();
+        return PessoaDAO.alterar(pessoaDTO);
+    }
+    public PessoaDTO procurarPorCodigo(PessoaDTO pessoaDTO){
+        PessoaDAO PessoaDAO = new PessoaDAO();
+        return PessoaDAO.procurarPorCodigo(pessoaDTO);
     }
 }
-//    public boolean alterar(PessoaDTO pessoaDTO){
-//        PessoaDAO marcasDAO = new PessoaDAO();
-//        return marcasDAO.alterar(pessoaDTO);
-//    }
 //    public boolean excluir(PessoaDTO pessoaDTO){
-//        PessoaDAO marcasDAO = new PessoaDAO();
-//        return marcasDAO.excluir(pessoaDTO);
+//        PessoaDAO PessoaDAO = new PessoaDAO();
+//        return PessoaDAO.excluir(pessoaDTO);
 //    }
-//    public PessoaDTO procurarPorCodigo(PessoaDTO pessoaDTO){
-//        PessoaDAO marcasDAO = new PessoaDAO();
-//        return marcasDAO.procurarPorCodigo(pessoaDTO);
-//    }
+
 //    public PessoaDTO procurarPorDescricao(PessoaDTO pessoaDTO){
-//        PessoaDAO marcasDAO = new PessoaDAO();
-//        return marcasDAO.procurarPorDescricao(pessoaDTO);
+//        PessoaDAO PessoaDAO = new PessoaDAO();
+//        return PessoaDAO.procurarPorDescricao(pessoaDTO);
 //    }
 
 //    public List<PessoaDTO> pesquisarTodos(){
-//        PessoaDAO marcasDAO = new PessoaDAO();
-//        return marcasDAO.pesquisarTodos();
+//        PessoaDAO PessoaDAO = new PessoaDAO();
+//        return PessoaDAO.pesquisarTodos();
 //    }
 //}
