@@ -7,11 +7,11 @@ public class MainProcurarPorCodigo {
 
 	public static void main(String[] args) {
 			
-//		// Teste Procurar por Codigo
-//		PessoaBO pessoaBO = new PessoaBO();
-//		PessoaDTO pessoaDTO = new PessoaDTO(1,"");
-//		pessoaDTO = pessoaBO.procurarPorCodigo(pessoaDTO);
-//		System.out.println(pessoaDTO);
+		// Teste Procurar por Codigo
+		PessoaBO pessoaBO = new PessoaBO();
+		PessoaDTO pessoaDTO = new PessoaDTO(1,"Felipe","aisudhasygdu","luisfelipetochamartins@gmail.com","123");
+		pessoaDTO = pessoaBO.procurarPorNome(pessoaDTO);
+		System.out.println(pessoaDTO);
 		
 	}
 }

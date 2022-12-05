@@ -7,14 +7,14 @@ public class MainExiste {
 
 	public static void main(String[] args) {
 
-//		// Teste Existe
-//		// Verifica se existe outro item com a mesma descricao
-//		PessoaBO pessoaBO = new PessoaBO();
-//		PessoaDTO pessoaDTO = new PessoaDTO("LG");
-//		if (pessoaBO.existe(pessoaDTO))
-//			System.out.println("Marca Encontrada");
-//		else
-//			System.out.println("Nao Encontrada");
+		// Teste Existe
+		// Verifica se existe outro item com a mesma descricao
+		PessoaBO pessoaBO = new PessoaBO();
+		PessoaDTO pessoaDTO = new PessoaDTO(2,"Felipe", "aisudhasygdu", "luisfelipetochamartins@gmail.com", "123");
+		if (pessoaBO.existe(pessoaDTO))
+			System.out.println("Pessoa Encontrada");
+		else
+			System.out.println("Pessoa Não Encontrada");
 
 	}
 }

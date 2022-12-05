@@ -8,9 +8,9 @@ public class MainAlteracao {
 
 		// Teste Alterar
 		PessoaBO pessoaBO = new PessoaBO();
-		PessoaDTO pessoaDTO = new PessoaDTO("Felipe","aisudhasygdu","luisfelipetochamartins@gmail.com","123");
+		PessoaDTO pessoaDTO = new PessoaDTO(1,"Felipe","aisudhasygdu","luisfelipetochamartins@gmail.com","123");
 		System.out.println(pessoaBO.alterar(pessoaDTO));
-		pessoaDTO = pessoaBO.procurarPorCodigo(pessoaDTO);
+		pessoaDTO = pessoaBO.procurarPorNome(pessoaDTO);
 
 	}
 }

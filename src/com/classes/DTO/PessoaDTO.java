@@ -2,7 +2,8 @@ package com.classes.DTO;
 
 public class PessoaDTO {
 
-	public PessoaDTO(String nome, String sobrenome, String email, String senha){
+	public PessoaDTO(int id,String nome, String sobrenome, String email, String senha){
+		setId(id);
 		setNome(nome);
 		setSobrenome(sobrenome);
 		setEmail(email);
@@ -13,6 +14,8 @@ public class PessoaDTO {
 
 	}
 
+	private int id;
+
 	private String nome;
 
 	private String sobrenome;
@@ -21,6 +24,12 @@ public class PessoaDTO {
 
 	private String senha;
 
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getNome() {
 		return nome;
@@ -56,12 +65,13 @@ public class PessoaDTO {
 
 	@Override
 	public String toString() {
-		final StringBuilder sb = new StringBuilder("Pessoa{");
-		sb.append("nome='").append(nome).append('\'');
-		sb.append(", sobrenome='").append(sobrenome).append('\'');
-		sb.append(", email='").append(email).append('\'');
-		sb.append(", senha='").append(senha).append('\'');
-		sb.append('}');
+		final StringBuilder sb = new StringBuilder();
+		sb.append("id = ").append(id).append("\'");
+		sb.append("Nome ='").append(nome).append('\'');
+		sb.append("Sobrenome ='").append(sobrenome).append('\'');
+		sb.append("Email ='").append(email).append('\'');
+		sb.append("Senha ='").append(senha).append('\'');
+
 		return sb.toString();
 	}
 }

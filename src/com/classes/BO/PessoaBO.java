@@ -2,12 +2,13 @@ package com.classes.BO;
 
 import com.classes.DTO.PessoaDTO;
 import com.classes.DAO.PessoaDAO;
+
 import java.util.List;
 
 public class PessoaBO {
 
     public boolean inserir(PessoaDTO pessoaDTO) {
-        if (existe(pessoaDTO) != true) {
+        if (!existe(pessoaDTO)) {
             PessoaDAO PessoaDAO = new PessoaDAO();
             return PessoaDAO.inserir(pessoaDTO);
         }
@@ -23,23 +24,17 @@ public class PessoaBO {
         PessoaDAO PessoaDAO = new PessoaDAO();
         return PessoaDAO.alterar(pessoaDTO);
     }
-    public PessoaDTO procurarPorCodigo(PessoaDTO pessoaDTO){
+    public PessoaDTO procurarPorNome(PessoaDTO pessoaDTO){
         PessoaDAO PessoaDAO = new PessoaDAO();
-        return PessoaDAO.procurarPorCodigo(pessoaDTO);
+        return PessoaDAO.procurarPorNome(pessoaDTO);
+    }
+    public boolean excluir(PessoaDTO pessoaDTO){
+        PessoaDAO PessoaDAO = new PessoaDAO();
+        return PessoaDAO.excluir(pessoaDTO);
+    }
+
+    public List<PessoaDTO> pesquisarTodos(){
+        PessoaDAO PessoaDAO = new PessoaDAO();
+        return PessoaDAO.pesquisarTodos();
     }
 }
-//    public boolean excluir(PessoaDTO pessoaDTO){
-//        PessoaDAO PessoaDAO = new PessoaDAO();
-//        return PessoaDAO.excluir(pessoaDTO);
-//    }
-
-//    public PessoaDTO procurarPorDescricao(PessoaDTO pessoaDTO){
-//        PessoaDAO PessoaDAO = new PessoaDAO();
-//        return PessoaDAO.procurarPorDescricao(pessoaDTO);
-//    }
-
-//    public List<PessoaDTO> pesquisarTodos(){
-//        PessoaDAO PessoaDAO = new PessoaDAO();
-//        return PessoaDAO.pesquisarTodos();
-//    }
-//}
