@@ -36,10 +36,11 @@ public class PessoaDTO {
 	}
 
 	public void setNome(String nome) throws Exception{
-		if(verificaTamanho(nome))
+	//	if(verificaTamanho(nome)) {
 			this.nome = nome;
-		else
-			throw new Exception("Nome não pode ter menos que três letras!");
+	//	}else {
+	//		throw new Exception("Nome não pode ter menos que três letras!");
+	//	}
 	}
 
 	public String getSobrenome() {
@@ -98,7 +99,7 @@ public class PessoaDTO {
 	}
 
 	public boolean verificaNulo(String string){
-		return (!Objects.equals(string, ""));
+		return !Objects.equals(string, "");
 	}
 
 	public boolean verificaTamanho(String nome){

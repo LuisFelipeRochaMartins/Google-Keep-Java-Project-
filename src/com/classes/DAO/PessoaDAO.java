@@ -70,22 +70,24 @@ public class PessoaDAO {
         }
     }
 
-    public PessoaDTO procurarPorNome(PessoaDTO pessoa) {
+    public String procurarPorNome(PessoaDTO pessoa) {
         try {
             Connection conn = Conexao.conectar();
-            String sql = "SELECT * FROM usuarios WHERE nome = ? AND sobrenome = ? ;";
+            String sql = "SELECT * FROM usuarios WHERE nome = ? AND senha = ? ;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, pessoa.getNome());
-            ps.setString(2,pessoa.getSobrenome());
+            ps.setString(2,pessoa.getSenha());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 PessoaDTO obj = new PessoaDTO();
-                obj.setNome(rs.getString(1));
-                obj.setSobrenome(rs.getString(2));
+                obj.setNome(rs.getString(2));
+                obj.setSobrenome(rs.getString(3));
+                obj.setEmail(rs.getString(4));
+                obj.setSenha(rs.getString(5));
                 ps.close();
                 rs.close();
                 conn.close();
-                return obj;
+                return obj.toString();
             } else {
                 ps.close();
                 rs.close();

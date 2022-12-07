@@ -23,7 +23,7 @@ public class PessoaBO {
         PessoaDAO PessoaDAO = new PessoaDAO();
         return PessoaDAO.alterar(pessoaDTO);
     }
-    public PessoaDTO procurarPorNome(PessoaDTO pessoaDTO){
+    public String procurarPorNome(PessoaDTO pessoaDTO){
         PessoaDAO PessoaDAO = new PessoaDAO();
         return PessoaDAO.procurarPorNome(pessoaDTO);
     }

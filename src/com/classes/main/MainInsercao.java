@@ -7,10 +7,8 @@ public class MainInsercao {
 	public static void main(String[] args) throws Exception {
 		// Teste Inserir
 		PessoaBO pessoaBO = new PessoaBO();
-		PessoaDTO pessoaDTO = new PessoaDTO("Luis","Felipe","asdb@asj","123");
-		if (PessoaBO.inserir(pessoaDTO))
-			System.out.println("Inserido com Sucesso");
-		else
-			System.out.println("Erro ao Inserir");
+		PessoaDTO pessoaDTO = new PessoaDTO("Luisito","Rocha", "luis@inho", "123");
+		System.out.println(pessoaBO.procurarPorNome(pessoaDTO));
+		pessoaBO.inserir(pessoaDTO);
 	}
 }
