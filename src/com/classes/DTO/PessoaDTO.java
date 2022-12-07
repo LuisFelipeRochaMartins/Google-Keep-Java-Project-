@@ -1,9 +1,12 @@
 package com.classes.DTO;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class PessoaDTO {
 
-	public PessoaDTO(int id,String nome, String sobrenome, String email, String senha){
-		setId(id);
+	public PessoaDTO(String nome, String sobrenome, String email, String senha) throws Exception {
 		setNome(nome);
 		setSobrenome(sobrenome);
 		setEmail(email);
@@ -13,9 +16,6 @@ public class PessoaDTO {
 	public PessoaDTO(){
 
 	}
-
-	private int id;
-
 	private String nome;
 
 	private String sobrenome;
@@ -23,13 +23,6 @@ public class PessoaDTO {
 	private String email;
 
 	private String senha;
-
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getNome() {
 		return nome;
@@ -51,8 +44,10 @@ public class PessoaDTO {
 		return email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail(String email) throws Exception{
+		if(verificaEmail(email))
+			this.email = email;
+		throw new Exception("Email Inválido");
 	}
 
 	public String getSenha() {
@@ -60,13 +55,34 @@ public class PessoaDTO {
 	}
 
 	public void setSenha(String senha) {
-		this.senha = senha;
+		this.senha = criptografaSenha(senha);
+	}
+
+	public static String criptografaSenha(String input)
+	{
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-1");
+			byte[] messageDigest = md.digest(input.getBytes());
+			BigInteger no = new BigInteger(1, messageDigest);
+			String hashtext = no.toString(16);
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext;
+			}
+
+			return hashtext;
+		}
+		catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public boolean verificaEmail(String email){
+		return email.contains("@");
 	}
 
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder();
-		sb.append("id = ").append(id).append("\'");
 		sb.append("Nome ='").append(nome).append('\'');
 		sb.append("Sobrenome ='").append(sobrenome).append('\'');
 		sb.append("Email ='").append(email).append('\'');

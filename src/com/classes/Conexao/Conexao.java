@@ -12,8 +12,8 @@ public class Conexao {
             String url = "jdbc:mysql://localhost/" + NOME_DO_BANCO;
             return DriverManager.getConnection(url,"root","123");
         } catch (Exception e) {
-            //System.err.println("Erro: " + e.toString());
-            //e.printStackTrace();
+            System.err.println("Erro: " + e.toString());
+            e.printStackTrace();
             return null;
         }
     }

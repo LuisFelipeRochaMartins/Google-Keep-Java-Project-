@@ -1,26 +1,25 @@
--- MySQL Workbench Forward Engineering
+CREATE DATABASE bancoJava;
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+CREATE TABLE notas(
+	id_notas INT NOT NULL AUTO_INCREMENT,
+	titulo VARCHAR(250),
+    conteudo VARCHAR(1000),
+	PRIMARY KEY(id_notas)
+);
+CREATE TABLE usuarios(
+	id_usuarios INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(250),
+    sobrenome VARCHAR(250),
+    email VARCHAR(250),
+    senha VARCHAR(250),
+    PRIMARY KEY (id_usuarios)
+);
 
--- -----------------------------------------------------
--- Schema mvcsimplesjdbc
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema mvcsimplesjdbc
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mvcsimplesjdbc` DEFAULT CHARACTER SET utf8 ;
-USE `mvcsimplesjdbc` ;
-
--- -----------------------------------------------------
--- Table `mvcsimplesjdbc`.`marca`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mvcsimplesjdbc`.`marca` (
-  `codigo` INT NOT NULL AUTO_INCREMENT,
-  `descricao` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`codigo`))
-ENGINE = InnoDB;
-
+CREATE TABLE usuario_nota(
+	id_notas INT,
+    id_usuarios INT,
+    FOREIGN KEY (id_notas) REFERENCES notas(id_notas),
+    FOREIGN KEY (id_usuarios) REFERENCES usuarios(id_usuarios),
+    PRIMARY KEY (id_notas,id_usuarios)
+);
 

@@ -29,7 +29,7 @@ public class NotasDAO {
         public boolean excluir(NotasDTO notasDTO) {
         try {
             Connection conn = Conexao.conectar();
-            String sql = "DELETE FROM notas WHERE codigo = ?;";
+            String sql = "DELETE FROM notas WHERE titulo = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, notasDTO.getTitulo());
             ps.executeUpdate();
@@ -61,6 +61,23 @@ public class NotasDAO {
             return false;
         }
         return false;
+    }
+    public static boolean alterar(NotasDTO notasDTO) {
+        try {
+            Connection conn = Conexao.conectar();
+            String sql = "UPDATE notas SET conteudo = ?, titulo = ?  WHERE titulo = ?;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, notasDTO.getConteudo());
+            ps.setString(2, notasDTO.getTitulo());
+            ps.setString(3, notasDTO.getTitulo());
+            ps.executeUpdate();
+            ps.close();
+            conn.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

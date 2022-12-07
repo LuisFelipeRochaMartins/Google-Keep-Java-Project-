@@ -1,13 +1,12 @@
 package com.classes.BO;
 
-import com.classes.DTO.PessoaDTO;
-import com.classes.DAO.PessoaDAO;
-
+import com.classes.DTO.*;
+import com.classes.DAO.*;
 import java.util.List;
 
 public class PessoaBO {
 
-    public boolean inserir(PessoaDTO pessoaDTO) {
+    public static boolean inserir(PessoaDTO pessoaDTO) {
         if (!existe(pessoaDTO)) {
             PessoaDAO PessoaDAO = new PessoaDAO();
             return PessoaDAO.inserir(pessoaDTO);
@@ -15,12 +14,12 @@ public class PessoaBO {
         return false;
     }
 
-    public boolean existe(PessoaDTO pessoaDTO) {
+    public static boolean existe(PessoaDTO pessoaDTO) {
         PessoaDAO PessoaDAO = new PessoaDAO();
         return PessoaDAO.existe(pessoaDTO);
     }
 
-    public boolean alterar(PessoaDTO pessoaDTO) {
+    public static boolean alterar(PessoaDTO pessoaDTO) {
         PessoaDAO PessoaDAO = new PessoaDAO();
         return PessoaDAO.alterar(pessoaDTO);
     }

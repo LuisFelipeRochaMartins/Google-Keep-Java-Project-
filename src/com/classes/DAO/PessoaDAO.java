@@ -59,7 +59,7 @@ public class PessoaDAO {
             ps.setString(2, pessoa.getSobrenome());
             ps.setString(3,pessoa.getEmail());
             ps.setString(4,pessoa.getSenha());
-            ps.setInt(5, pessoa.getId());
+//            ps.setInt(5, pessoa.getId());
             ps.executeUpdate();
             ps.close();
             conn.close();
@@ -103,7 +103,7 @@ public class PessoaDAO {
             Connection conn = Conexao.conectar();
             String sql = "DELETE FROM usuarios WHERE id = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, pessoaDTO.getId());
+//            ps.setInt(1, pessoaDTO.getId());
             ps.executeUpdate();
             ps.close();
             conn.close();
@@ -123,8 +123,8 @@ public class PessoaDAO {
             List<PessoaDTO> listObj = montarLista(rs);
             return listObj;
         } catch (Exception e) {
-            //System.err.println("Erro: " + e.toString());
-            //e.printStackTrace();
+            System.err.println("Erro: " + e.toString());
+            e.printStackTrace();
             return null;
         }
     }
@@ -134,7 +134,6 @@ public class PessoaDAO {
         try {
             while (rs.next()) {
                 PessoaDTO obj = new PessoaDTO();
-                obj.setId(rs.getInt(1));
                 obj.setNome(rs.getString(2));
                 obj.setSobrenome(rs.getString(3));
                 obj.setEmail(rs.getString(4));

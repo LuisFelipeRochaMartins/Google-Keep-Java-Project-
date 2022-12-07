@@ -19,4 +19,14 @@ public class NotasBO {
         NotasDAO notasDAO = new NotasDAO();
         return notasDAO.existe(notasDTO);
     }
+
+    public static boolean excluir(NotasDTO notasDTO){
+        NotasDAO notasDAO = new NotasDAO();
+        return notasDAO.excluir(notasDTO);
+    }
+
+    public boolean alterar(NotasDTO notasDTO) {
+        PessoaDAO PessoaDAO = new PessoaDAO();
+        return NotasDAO.alterar(notasDTO);
+    }
 }
