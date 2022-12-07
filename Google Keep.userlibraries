@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="mysql-connector-java">
+    <archive path="C:/Users/luisi/OneDrive/Documentos/Coding/POO/Google Keep/src/lib/mysql-connector-java.jar" />
+  </library>
+  <library name="lib" />
+  <library name="mysql" />
+</eclipse-userlibraries>
+

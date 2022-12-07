@@ -11,7 +11,7 @@ CREATE TABLE usuarios(
     nome VARCHAR(250),
     sobrenome VARCHAR(250),
     email VARCHAR(250),
-    senha VARCHAR(250),
+    senha VARCHAR(100),
     PRIMARY KEY (id_usuarios)
 );
 

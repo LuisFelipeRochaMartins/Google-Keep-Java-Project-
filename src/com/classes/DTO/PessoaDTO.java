@@ -1,8 +1,11 @@
 package com.classes.DTO;
 
+import jdk.jfr.Experimental;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 public class PessoaDTO {
 
@@ -13,6 +16,10 @@ public class PessoaDTO {
 		setSenha(senha);
 	}
 
+	public PessoaDTO(String nome, String senha)throws Exception{
+		setNome(nome);
+		setSenha(senha);
+	}
 	public PessoaDTO(){
 
 	}
@@ -28,16 +35,22 @@ public class PessoaDTO {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String nome) throws Exception{
+		if(verificaTamanho(nome))
+			this.nome = nome;
+		else
+			throw new Exception("Nome não pode ter menos que três letras!");
 	}
 
 	public String getSobrenome() {
 		return sobrenome;
 	}
 
-	public void setSobrenome(String sobrenome) {
-		this.sobrenome = sobrenome;
+	public void setSobrenome(String sobrenome) throws Exception {
+		if(verificaNulo(sobrenome))
+			this.sobrenome = sobrenome;
+		else
+			throw new Exception("Sobrenome não pode ser nulo!");
 	}
 
 	public String getEmail() {
@@ -45,23 +58,27 @@ public class PessoaDTO {
 	}
 
 	public void setEmail(String email) throws Exception{
-		if(verificaEmail(email))
+		if(verificaEmail(email) && verificaNulo(email))
 			this.email = email;
-		throw new Exception("Email Inválido");
+		else
+			throw new Exception("Email Inválido ou Nulo");
 	}
 
 	public String getSenha() {
 		return senha;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = criptografaSenha(senha);
+	public void setSenha(String senha) throws Exception{
+		if(verificaNulo(senha))
+			this.senha = criptografaSenha(senha);
+		else
+			throw new Exception("Não é possível ter uma senha nula");
 	}
 
 	public static String criptografaSenha(String input)
 	{
 		try {
-			MessageDigest md = MessageDigest.getInstance("SHA-1");
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			byte[] messageDigest = md.digest(input.getBytes());
 			BigInteger no = new BigInteger(1, messageDigest);
 			String hashtext = no.toString(16);
@@ -80,14 +97,25 @@ public class PessoaDTO {
 		return email.contains("@");
 	}
 
+	public boolean verificaNulo(String string){
+		return (!Objects.equals(string, ""));
+	}
+
+	public boolean verificaTamanho(String nome){
+		if(nome.length()>3){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder();
-		sb.append("Nome ='").append(nome).append('\'');
-		sb.append("Sobrenome ='").append(sobrenome).append('\'');
-		sb.append("Email ='").append(email).append('\'');
-		sb.append("Senha ='").append(senha).append('\'');
-
+		sb.append("Nome ='").append(nome).append('\n');
+		sb.append("Sobrenome ='").append(sobrenome).append('\n');
+		sb.append("Email ='").append(email).append('\n');
+		sb.append("Senha ='").append(senha);
 		return sb.toString();
 	}
 }
