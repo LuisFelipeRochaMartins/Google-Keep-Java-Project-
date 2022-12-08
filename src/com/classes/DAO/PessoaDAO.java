@@ -88,7 +88,7 @@ public class PessoaDAO {
                 rs.close();
                 conn.close();
                 return obj.toString();
-            } else {
+            } else{
                 ps.close();
                 rs.close();
                 conn.close();

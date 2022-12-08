@@ -32,10 +32,9 @@ public class NotasDTO {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("NotaDTO{");
-        sb.append("titulo='").append(titulo).append('\'');
-        sb.append(", conteudo='").append(conteudo).append('\'');
-        sb.append('}');
+        final StringBuilder sb = new StringBuilder();
+        sb.append("Titulo =").append(titulo).append("\n");
+        sb.append("conteudo =").append(conteudo).append("\n");
         return sb.toString();
     }
 }

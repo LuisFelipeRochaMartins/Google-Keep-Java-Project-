@@ -1,7 +1,5 @@
 package com.classes.DTO;
 
-import jdk.jfr.Experimental;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -36,11 +34,11 @@ public class PessoaDTO {
 	}
 
 	public void setNome(String nome) throws Exception{
-	//	if(verificaTamanho(nome)) {
+		if(verificaTamanho(nome)) {
 			this.nome = nome;
-	//	}else {
-	//		throw new Exception("Nome não pode ter menos que três letras!");
-	//	}
+		}else {
+			throw new Exception("Nome não pode ter menos que três letras!");
+		}
 	}
 
 	public String getSobrenome() {
@@ -71,29 +69,10 @@ public class PessoaDTO {
 
 	public void setSenha(String senha) throws Exception{
 		if(verificaNulo(senha))
-			this.senha = criptografaSenha(senha);
+			this.senha = senha;
 		else
 			throw new Exception("Não é possível ter uma senha nula");
 	}
-
-	public static String criptografaSenha(String input)
-	{
-		try {
-			MessageDigest md = MessageDigest.getInstance("SHA-256");
-			byte[] messageDigest = md.digest(input.getBytes());
-			BigInteger no = new BigInteger(1, messageDigest);
-			String hashtext = no.toString(16);
-			while (hashtext.length() < 32) {
-				hashtext = "0" + hashtext;
-			}
-
-			return hashtext;
-		}
-		catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 	public boolean verificaEmail(String email){
 		return email.contains("@");
 	}
@@ -103,20 +82,16 @@ public class PessoaDTO {
 	}
 
 	public boolean verificaTamanho(String nome){
-		if(nome.length()>3){
-			return true;
-		}else{
-			return false;
-		}
+			return nome.length()>3;
 	}
 
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder();
-		sb.append("Nome ='").append(nome).append('\n');
-		sb.append("Sobrenome ='").append(sobrenome).append('\n');
-		sb.append("Email ='").append(email).append('\n');
-		sb.append("Senha ='").append(senha);
+		sb.append("Nome = ").append(nome).append('\n');
+		sb.append("Sobrenome = ").append(sobrenome).append('\n');
+		sb.append("Email = ").append(email).append('\n');
+		sb.append("Senha = ").append(getSenha());
 		return sb.toString();
 	}
 }

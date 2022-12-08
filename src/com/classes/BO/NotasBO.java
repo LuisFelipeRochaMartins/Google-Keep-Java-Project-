@@ -1,9 +1,8 @@
 package com.classes.BO;
 
-import com.classes.DAO.NotasDAO;
-import com.classes.DAO.PessoaDAO;
-import com.classes.DTO.NotasDTO;
-import com.classes.DTO.PessoaDTO;
+import com.classes.DAO.*;
+import com.classes.DAO.*;
+import com.classes.DTO.*;
 
 public class NotasBO {
 

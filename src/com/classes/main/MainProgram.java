@@ -1,11 +1,12 @@
 package com.classes.main;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
-import com.classes.DAO.PessoaDAO;
 import com.classes.DTO.*;
 import com.classes.BO.*;
-import com.mysql.jdbc.NamedPipeSocketFactory;
 
 public class MainProgram {
     public static void main(String[] args) throws Exception {
@@ -25,10 +26,10 @@ public class MainProgram {
                 System.out.println("Por favor insira seu nome de Usuário :");
                 String name = input.nextLine();
                 System.out.println("Por favor digite sua senha : ");
-                String pass = input.nextLine();
+                String pass = Criptografia.criptografaSenha(input.nextLine());
                 PessoaBO pessoaBO = new PessoaBO();
                 PessoaDTO pesquisa = new PessoaDTO(name, pass);
-                if (pessoaBO.procurarPorNome(pesquisa).contains(name) || pessoaBO.procurarPorNome(pesquisa).contains(pesquisa.getSenha())) {
+                if (pessoaBO.procurarPorNome(pesquisa).contains(name) && pessoaBO.procurarPorNome(pesquisa).contains(pass)){
                     System.out.println("Entrou");
                     cadastro = false;
                 } else
@@ -42,19 +43,18 @@ public class MainProgram {
                 System.out.println("Digite também seu email : ");
                 String email = input.nextLine();
                 System.out.println("Por favor, digite sua senha : ");
-                String pass = input.nextLine();
+                String pass = Criptografia.criptografaSenha(input.nextLine());
                 PessoaBO pessoaBO = new PessoaBO();
                 PessoaDTO pessoaDTO = new PessoaDTO(name, sobrenome, email, pass);
                 if (pessoaBO.inserir(pessoaDTO)){
                     System.out.println("Inserido com Sucesso");
                     cadastro = false;
-                }else
-                    break;
-
+                }
             }
             else if(opc==0){
                 break;
             }
         }
     }
+
 }
