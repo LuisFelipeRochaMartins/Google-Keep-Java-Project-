@@ -32,9 +32,9 @@ public class PessoaDAO {
     public boolean existe(PessoaDTO pessoaDTO) {
         try {
             Connection conn = Conexao.conectar();
-            String sql = "SELECT * FROM usuarios WHERE nome = ?;";
+            String sql = "SELECT * FROM usuarios WHERE email = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, pessoaDTO.getNome());
+            ps.setString(1, pessoaDTO.getEmail());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 ps.close();
@@ -53,13 +53,12 @@ public class PessoaDAO {
     public boolean alterar(PessoaDTO pessoa) {
         try {
             Connection conn = Conexao.conectar();
-            String sql = "UPDATE usuarios SET nome  = ?, sobrenome = ?, email = ?, senha = ? WHERE id = ?;";
+            String sql = "UPDATE usuarios SET nome  = ?, sobrenome = ?, senha  =  ? WHERE email = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, pessoa.getNome());
             ps.setString(2, pessoa.getSobrenome());
-            ps.setString(3,pessoa.getEmail());
-            ps.setString(4,pessoa.getSenha());
-//            ps.setInt(5, pessoa.getId());
+            ps.setString(3,pessoa.getSenha());
+            ps.setString(4,pessoa.getEmail());
             ps.executeUpdate();
             ps.close();
             conn.close();
@@ -70,16 +69,16 @@ public class PessoaDAO {
         }
     }
 
-    public String procurarPorNome(PessoaDTO pessoa) {
+    public PessoaDTO procurarPorEmail(PessoaDTO pessoa) {
         try {
             Connection conn = Conexao.conectar();
-            String sql = "SELECT * FROM usuarios WHERE nome = ? AND senha = ? ;";
+            String sql = "SELECT * FROM usuarios WHERE email = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, pessoa.getNome());
-            ps.setString(2,pessoa.getSenha());
+            ps.setString(1, pessoa.getEmail());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 PessoaDTO obj = new PessoaDTO();
+                obj.setId(rs.getInt(1));
                 obj.setNome(rs.getString(2));
                 obj.setSobrenome(rs.getString(3));
                 obj.setEmail(rs.getString(4));
@@ -87,8 +86,8 @@ public class PessoaDAO {
                 ps.close();
                 rs.close();
                 conn.close();
-                return obj.toString();
-            } else{
+                return obj;
+            }else{
                 ps.close();
                 rs.close();
                 conn.close();
@@ -103,9 +102,9 @@ public class PessoaDAO {
     public boolean excluir(PessoaDTO pessoaDTO) {
         try {
             Connection conn = Conexao.conectar();
-            String sql = "DELETE FROM usuarios WHERE id = ?;";
+            String sql = "DELETE FROM usuarios WHERE email = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
-//            ps.setInt(1, pessoaDTO.getId());
+            ps.setString(1, pessoaDTO.getEmail());
             ps.executeUpdate();
             ps.close();
             conn.close();

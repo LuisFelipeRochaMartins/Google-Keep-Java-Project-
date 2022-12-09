@@ -1,15 +1,14 @@
 package com.classes.BO;
 
 import com.classes.DAO.*;
-import com.classes.DAO.*;
 import com.classes.DTO.*;
 
 public class NotasBO {
 
-    public boolean inserir(NotasDTO notasDTO) {
+    public boolean inserir(NotasDTO notasDTO,PessoaDTO pessoaDTO) {
         if (!existe(notasDTO)) {
             NotasDAO notasDAO = new NotasDAO();
-            return NotasDAO.inserir(notasDTO);
+            return NotasDAO.inserir(notasDTO, pessoaDTO);
         }
         return false;
     }
@@ -25,7 +24,17 @@ public class NotasBO {
     }
 
     public boolean alterar(NotasDTO notasDTO) {
-        PessoaDAO PessoaDAO = new PessoaDAO();
+        NotasDAO notasDAO = new NotasDAO();
         return NotasDAO.alterar(notasDTO);
     }
+
+//    public boolean montarLista(NotasDTO notasDTO){
+//        NotasDAO notasDAO = new NotasDAO();
+//        return NotasDAO.montarLista(rs);
+//    }
+
+//    public boolean pesquisarTodas(NotasDTO notasDTO){
+//        NotasDAO notasDAO = new NotasDAO();
+//        return NotasDAO.pesquisarTodos(notasDTO);
+//    }
 }

@@ -1,8 +1,5 @@
 package com.classes.DTO;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 
 public class PessoaDTO {
@@ -14,13 +11,23 @@ public class PessoaDTO {
 		setSenha(senha);
 	}
 
-	public PessoaDTO(String nome, String senha)throws Exception{
-		setNome(nome);
+	public PessoaDTO(String email, String senha)throws Exception{
+		setEmail(email);
 		setSenha(senha);
 	}
 	public PessoaDTO(){
 
 	}
+	private int id;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	private String nome;
 
 	private String sobrenome;
@@ -88,6 +95,7 @@ public class PessoaDTO {
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder();
+		sb.append("ID = ").append(id).append('\n');
 		sb.append("Nome = ").append(nome).append('\n');
 		sb.append("Sobrenome = ").append(sobrenome).append('\n');
 		sb.append("Email = ").append(email).append('\n');

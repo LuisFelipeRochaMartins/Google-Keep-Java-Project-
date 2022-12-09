@@ -23,17 +23,12 @@ public class PessoaBO {
         PessoaDAO PessoaDAO = new PessoaDAO();
         return PessoaDAO.alterar(pessoaDTO);
     }
-    public String procurarPorNome(PessoaDTO pessoaDTO){
+    public PessoaDTO procurarPorEmail(PessoaDTO pessoaDTO){
         PessoaDAO PessoaDAO = new PessoaDAO();
-        return PessoaDAO.procurarPorNome(pessoaDTO);
+        return PessoaDAO.procurarPorEmail(pessoaDTO);
     }
     public boolean excluir(PessoaDTO pessoaDTO){
         PessoaDAO PessoaDAO = new PessoaDAO();
         return PessoaDAO.excluir(pessoaDTO);
-    }
-
-    public List<PessoaDTO> pesquisarTodos(){
-        PessoaDAO PessoaDAO = new PessoaDAO();
-        return PessoaDAO.pesquisarTodos();
     }
 }
