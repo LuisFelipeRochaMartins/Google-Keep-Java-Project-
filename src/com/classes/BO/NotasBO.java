@@ -3,6 +3,8 @@ package com.classes.BO;
 import com.classes.DAO.*;
 import com.classes.DTO.*;
 
+import java.util.List;
+
 public class NotasBO {
 
     public boolean inserir(NotasDTO notasDTO,PessoaDTO pessoaDTO) {
@@ -28,13 +30,8 @@ public class NotasBO {
         return NotasDAO.alterar(notasDTO);
     }
 
-//    public boolean montarLista(NotasDTO notasDTO){
-//        NotasDAO notasDAO = new NotasDAO();
-//        return NotasDAO.montarLista(rs);
-//    }
-
-//    public boolean pesquisarTodas(NotasDTO notasDTO){
-//        NotasDAO notasDAO = new NotasDAO();
-//        return NotasDAO.pesquisarTodos(notasDTO);
-//    }
+    public List<NotasDTO> pesquisarTodas(PessoaDTO PessoaDTO){
+        NotasDAO notasDAO = new NotasDAO();
+        return NotasDAO.pesquisarNotasPorUsuario(PessoaDTO);
+    }
 }

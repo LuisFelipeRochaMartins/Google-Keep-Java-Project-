@@ -81,11 +81,12 @@ public class NotasDAO {
             return false;
         }
     }
-    public List<NotasDTO> montarLista(ResultSet rs) {
+    public static List<NotasDTO> montarLista(ResultSet rs) {
         List<NotasDTO> listObj = new ArrayList<NotasDTO>();
         try {
             while (rs.next()) {
                 NotasDTO obj = new NotasDTO();
+                obj.setId(rs.getInt(1));
                 obj.setTitulo(rs.getString(3));
                 obj.setConteudo(rs.getString(4));
                 listObj.add(obj);
@@ -98,11 +99,12 @@ public class NotasDAO {
         }
     }
 
-    public List<NotasDTO> pesquisarTodos() {
+    public static List<NotasDTO> pesquisarNotasPorUsuario(PessoaDTO pessoaDTO) {
         try {
             Connection conn = Conexao.conectar();
-            String sql = "SELECT * FROM usuarios;";
+            String sql = "SELECT * FROM nota WHERE id_usuario = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, pessoaDTO.getId());
             ResultSet rs = ps.executeQuery();
             List<NotasDTO> listObj = montarLista(rs);
             return listObj;

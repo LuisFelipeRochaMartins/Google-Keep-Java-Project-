@@ -9,10 +9,19 @@ public class NotasDTO {
     public NotasDTO(){
 
     }
+    private int id;
 
     private String titulo;
 
     private String conteudo;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -33,8 +42,9 @@ public class NotasDTO {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("Titulo =").append(titulo).append("\n");
-        sb.append("conteudo =").append(conteudo).append("\n");
+        sb.append("ID = ").append(id).append("\n");;
+        sb.append("Titulo = ").append(titulo).append("\n");
+        sb.append("conteudo = ").append(conteudo).append("\n\n");
         return sb.toString();
     }
 }

@@ -9,7 +9,7 @@ public class MainInsercao {
 		// Teste Inserir
 		Scanner input = new Scanner(System.in);
 		PessoaBO pessoaBO = new PessoaBO();
-		PessoaDTO pessoaDTO = new PessoaDTO( "marcos@","asbdsagd");
+		PessoaDTO pessoaDTO = new PessoaDTO( "bolinha@","123");
 		System.out.println(pessoaBO.procurarPorEmail(pessoaDTO));
 	}
 }

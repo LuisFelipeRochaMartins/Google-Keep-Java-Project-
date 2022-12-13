@@ -13,7 +13,7 @@ public class MainProgram {
             System.out.println("0 - Para      Sair\n1 - Para    Entrar\n2 - Para Cadastrar");
             opc = input.nextInt();
             String a = input.nextLine();
-        }while(opc<0 || opc>2);
+        }while(opc<0 || opc>2); // validação de entrada
         while (cadastro) {
             if (opc == 1) {
                 System.out.println("----------------------------");
@@ -21,9 +21,9 @@ public class MainProgram {
                 System.out.print("Por favor digite seu Email : ");
                 String email = input.nextLine();
                 System.out.print("Por favor digite sua Senha : ");
-                String pass = Criptografia.criptografaSenha(input.nextLine());
-                System.out.println("----------------------------");
-
+                String pass = Criptografia.criptografaSenha(input.nextLine()); // verifica se há algum usuario com mesmo
+                System.out.println("----------------------------");            // email e senha, caso não continuar no
+                                                                               // loop até ter uma entrada válida
                 PessoaBO pessoaBO = new PessoaBO();
                 PessoaDTO pesquisa = new PessoaDTO(email,pass);
                 pesquisa = pessoaBO.procurarPorEmail(pesquisa);
@@ -48,9 +48,10 @@ public class MainProgram {
 
                 PessoaBO pessoaBO = new PessoaBO();
                 PessoaDTO pessoaDTO = new PessoaDTO(name, sobrenome, email, pass);
+                // cria um novo usuário, e insere dentro do banco de dados, caso dê algum problema como senha nula,
+                // nome com menos de 3 letras, ou email sem @, ele volta para a tela de cadastro.
 
                 if (pessoaBO.inserir(pessoaDTO)){
-                    System.out.println("Inserido com Sucesso");
                     cadastro = false;
                     UsuarioNota(pessoaDTO);
                 }
@@ -60,28 +61,68 @@ public class MainProgram {
             }
         }
     }
-    public static void UsuarioNota(PessoaDTO pessoaDTO) {
+    public static void UsuarioNota(PessoaDTO pessoaDTO) throws Exception {
         NotasBO notasBO = new NotasBO();
+        PessoaBO pessoaBO = new PessoaBO();
         Scanner input = new Scanner(System.in);
-        System.out.println("    Bem-vindo " + pessoaDTO.getNome());
+        System.out.println("    Bem-vindo " + pessoaDTO.getNome() + "\n");
+        if (notasBO.pesquisarTodas(pessoaDTO).isEmpty())
+            System.out.println("Nenhuma Nota Criada \n");
+        else
+            System.out.println(notasBO.pesquisarTodas(pessoaDTO));
 
         int opc = 0;
         do {
-            System.out.println("O que deseja fazer?\n" + "1 - Para    Criar   Notas\n" +
-                                       "2 - Para   Excluir  Notas\n" + "3 - Para Atualizar  Notas");
+            System.out.println("O que deseja fazer?\n" + "1 - Para    Criar     Notas\n" + "2 - Para   Excluir    Notas\n" +
+                                       "3 - Para  Atualizar   Notas\n" + "4 - Para Atualizar Cadastro\n" + "5 - Para   Apagar  Cadastro ");
             System.out.println("----------------------------");
             opc = input.nextInt();
             String a = input.nextLine();
-        } while (opc < 1 || opc > 3);
-        if (opc == 1) {
-            System.out.println("         Criando Nota");
-            System.out.print("Digite o Título da Nota : ");
-            String title = input.nextLine();
-            System.out.print("Escreva o Conteúdo : ");
-            String content = input.next();
+        } while (opc < 1 || opc > 5);
+        while (true) {
+            if (opc == 1) {
+                System.out.println("         Criando Nota");
+                System.out.print("Digite o Título da Nota : ");
+                String title = input.nextLine();
+                System.out.print("Escreva o Conteúdo : ");
+                String content = input.next();
 
-            NotasDTO notas = new NotasDTO(title, content);
-            notasBO.inserir(notas, pessoaDTO);
+                NotasDTO notas = new NotasDTO(title, content);
+                notasBO.inserir(notas, pessoaDTO);
+            } else if (opc == 2) {
+                System.out.println("Escreva o ID da nota que deseja apagar : ");
+                int id = input.nextInt();
+                String b = input.nextLine();
+            } else if (opc == 4) {
+                //
+                int a = pessoaDTO.getId();
+                System.out.println("----------------------------");
+                System.out.println("      Mudando Cadastro ");
+                System.out.println("Nome antigo : " + pessoaDTO.getNome());
+                System.out.println("Insira seu novo Nome : ");
+                String nome = input.nextLine();
+                System.out.println("Sobrenome antigo : " + pessoaDTO.getSobrenome());
+                System.out.println("Insira seu novo Sobrenome : ");
+                String sobren = input.nextLine();
+                System.out.println("Email antigo : " + pessoaDTO.getEmail());
+                System.out.println("Insira seu novo email : ");
+                String email = input.nextLine();
+                System.out.println("Insira sua nova senha : ");
+                String senha = Criptografia.criptografaSenha(input.nextLine());
+                System.out.println("----------------------------");
+                PessoaDTO pessoaDTO1 = new PessoaDTO(a, nome, sobren, email, senha);
+
+                if (pessoaBO.alterar(pessoaDTO1)) ;
+                {
+                    System.out.println("Alterado com Sucesso!");
+                }
+            } else if(opc == 5) {
+                if (pessoaBO.excluir(pessoaDTO)) {
+                    System.out.println("Excluido com Sucesso!");
+                    break;
+                }else
+                    System.out.println("Houve um Erro durante a Exclusão!");
+            }
         }
     }
 }

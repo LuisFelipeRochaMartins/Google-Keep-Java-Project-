@@ -53,12 +53,13 @@ public class PessoaDAO {
     public boolean alterar(PessoaDTO pessoa) {
         try {
             Connection conn = Conexao.conectar();
-            String sql = "UPDATE usuarios SET nome  = ?, sobrenome = ?, senha  =  ? WHERE email = ?;";
+            String sql = "UPDATE usuarios SET nome  = ?, sobrenome = ?, email = ?,senha  =  ? WHERE id = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, pessoa.getNome());
             ps.setString(2, pessoa.getSobrenome());
-            ps.setString(3,pessoa.getSenha());
-            ps.setString(4,pessoa.getEmail());
+            ps.setString(3, pessoa.getEmail());
+            ps.setString(4,pessoa.getSenha());
+            ps.setInt(5,pessoa.getId());
             ps.executeUpdate();
             ps.close();
             conn.close();
@@ -102,9 +103,9 @@ public class PessoaDAO {
     public boolean excluir(PessoaDTO pessoaDTO) {
         try {
             Connection conn = Conexao.conectar();
-            String sql = "DELETE FROM usuarios WHERE email = ?;";
+            String sql = "DELETE FROM usuarios WHERE id  = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, pessoaDTO.getEmail());
+            ps.setInt(1, pessoaDTO.getId());
             ps.executeUpdate();
             ps.close();
             conn.close();

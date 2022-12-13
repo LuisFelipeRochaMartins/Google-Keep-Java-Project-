@@ -3,6 +3,13 @@ package com.classes.DTO;
 import java.util.Objects;
 
 public class PessoaDTO {
+	public PessoaDTO (int id, String nome, String sobrenome, String email, String senha)throws Exception{
+		setId(id);
+		setNome(nome);
+		setSobrenome(sobrenome);
+		setEmail(email);
+		setSenha(senha);
+	}
 
 	public PessoaDTO(String nome, String sobrenome, String email, String senha) throws Exception {
 		setNome(nome);
@@ -20,14 +27,6 @@ public class PessoaDTO {
 	}
 	private int id;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	private String nome;
 
 	private String sobrenome;
@@ -35,6 +34,13 @@ public class PessoaDTO {
 	private String email;
 
 	private String senha;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getNome() {
 		return nome;
