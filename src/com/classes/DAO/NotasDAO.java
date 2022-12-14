@@ -31,9 +31,9 @@ public class NotasDAO {
         public boolean excluir(NotasDTO notasDTO) {
         try {
             Connection conn = Conexao.conectar();
-            String sql = "DELETE FROM notas WHERE titulo = ?;";
+            String sql = "DELETE FROM nota WHERE id_nota = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, notasDTO.getTitulo());
+            ps.setInt(1, notasDTO.getId());
             ps.executeUpdate();
             ps.close();
             conn.close();
@@ -41,6 +41,22 @@ public class NotasDAO {
         } catch (Exception e) {
         	 e.printStackTrace();
              return false;
+        }
+    }
+
+    public static boolean excluirPorUsuario(PessoaDTO pessoaDTO){
+        try {
+            Connection conn = Conexao.conectar();
+            String sql = "DELETE FROM nota WHERE id_usuario = ?;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, pessoaDTO.getId());
+            ps.executeUpdate();
+            ps.close();
+            conn.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

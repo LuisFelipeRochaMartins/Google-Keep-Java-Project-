@@ -64,22 +64,24 @@ public class MainProgram {
     public static void UsuarioNota(PessoaDTO pessoaDTO) throws Exception {
         NotasBO notasBO = new NotasBO();
         PessoaBO pessoaBO = new PessoaBO();
+        PessoaDTO pessoaDTO1 = pessoaBO.procurarPorEmail(pessoaDTO);
         Scanner input = new Scanner(System.in);
-        System.out.println("    Bem-vindo " + pessoaDTO.getNome() + "\n");
-        if (notasBO.pesquisarTodas(pessoaDTO).isEmpty())
-            System.out.println("Nenhuma Nota Criada \n");
-        else
-            System.out.println(notasBO.pesquisarTodas(pessoaDTO));
+        System.out.println("    Bem-vindo " + pessoaDTO1.getNome() + "\n");
 
         int opc = 0;
-        do {
-            System.out.println("O que deseja fazer?\n" + "1 - Para    Criar     Notas\n" + "2 - Para   Excluir    Notas\n" +
-                                       "3 - Para  Atualizar   Notas\n" + "4 - Para Atualizar Cadastro\n" + "5 - Para   Apagar  Cadastro ");
-            System.out.println("----------------------------");
-            opc = input.nextInt();
-            String a = input.nextLine();
-        } while (opc < 1 || opc > 5);
         while (true) {
+            // verifica se o usuário possui alguma nota.
+            if (notasBO.pesquisarTodas(pessoaDTO1).isEmpty())
+                System.out.println("Nenhuma Nota Criada \n");
+            else
+                System.out.println(notasBO.pesquisarTodas(pessoaDTO1));
+            do {
+                System.out.println("O que deseja fazer? \n1 - Para    Criar     Notas \n2 - Para   Excluir    Notas\n" +
+                       "3 - Para  Atualizar   Notas\n" + "4 - Para Atualizar Cadastro\n" + "5 - Para   Apagar  Cadastro");
+                System.out.println("----------------------------");
+                opc = input.nextInt();
+                String a = input.nextLine();
+            } while (opc < 1 || opc > 5);
             if (opc == 1) {
                 System.out.println("         Criando Nota");
                 System.out.print("Digite o Título da Nota : ");
@@ -88,36 +90,47 @@ public class MainProgram {
                 String content = input.next();
 
                 NotasDTO notas = new NotasDTO(title, content);
-                notasBO.inserir(notas, pessoaDTO);
+                notasBO.inserir(notas, pessoaDTO1);
             } else if (opc == 2) {
                 System.out.println("Escreva o ID da nota que deseja apagar : ");
                 int id = input.nextInt();
                 String b = input.nextLine();
+                NotasDTO notasDTO1 = new NotasDTO(id);
+                if (notasBO.excluir(notasDTO1))
+                    System.out.println("Excluido com Sucesso");
+                else
+                    System.out.println("Não foi possível apagar a nota");
+                System.out.println("----------------------------");
             } else if (opc == 4) {
                 //
                 int a = pessoaDTO.getId();
                 System.out.println("----------------------------");
                 System.out.println("      Mudando Cadastro ");
+
                 System.out.println("Nome antigo : " + pessoaDTO.getNome());
-                System.out.println("Insira seu novo Nome : ");
+                System.out.print("Insira seu novo Nome : ");
                 String nome = input.nextLine();
                 System.out.println("Sobrenome antigo : " + pessoaDTO.getSobrenome());
-                System.out.println("Insira seu novo Sobrenome : ");
+                System.out.print("Insira seu novo Sobrenome : ");
                 String sobren = input.nextLine();
-                System.out.println("Email antigo : " + pessoaDTO.getEmail());
-                System.out.println("Insira seu novo email : ");
-                String email = input.nextLine();
-                System.out.println("Insira sua nova senha : ");
-                String senha = Criptografia.criptografaSenha(input.nextLine());
-                System.out.println("----------------------------");
-                PessoaDTO pessoaDTO1 = new PessoaDTO(a, nome, sobren, email, senha);
 
-                if (pessoaBO.alterar(pessoaDTO1)) ;
-                {
+                System.out.println("Email antigo : " + pessoaDTO.getEmail());
+                System.out.print("Insira seu novo email : ");
+                String email = input.nextLine();
+                System.out.print("Insira sua nova senha : ");
+                String senha = Criptografia.criptografaSenha(input.nextLine());
+
+                System.out.println("----------------------------");
+                PessoaDTO pessoaDTO2 = new PessoaDTO(a, nome, sobren, email, senha);
+
+                if (pessoaBO.alterar(pessoaDTO2))
                     System.out.println("Alterado com Sucesso!");
-                }
+                else
+                    System.out.println("Não foi possível Alterar Usuário");
+
             } else if(opc == 5) {
-                if (pessoaBO.excluir(pessoaDTO)) {
+                if (pessoaBO.excluir(pessoaDTO1)) {
+                    notasBO.excluirPorUsuario(pessoaDTO1);
                     System.out.println("Excluido com Sucesso!");
                     break;
                 }else

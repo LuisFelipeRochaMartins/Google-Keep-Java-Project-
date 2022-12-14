@@ -34,4 +34,8 @@ public class NotasBO {
         NotasDAO notasDAO = new NotasDAO();
         return NotasDAO.pesquisarNotasPorUsuario(PessoaDTO);
     }
+    public boolean excluirPorUsuario(PessoaDTO pessoaDTO){
+        NotasDAO notasDAO = new NotasDAO();
+        return  NotasDAO.excluirPorUsuario(pessoaDTO);
+    }
 }

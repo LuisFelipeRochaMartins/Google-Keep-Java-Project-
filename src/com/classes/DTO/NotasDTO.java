@@ -9,6 +9,10 @@ public class NotasDTO {
     public NotasDTO(){
 
     }
+
+    public NotasDTO (int id){
+        setId(id);
+    }
     private int id;
 
     private String titulo;
