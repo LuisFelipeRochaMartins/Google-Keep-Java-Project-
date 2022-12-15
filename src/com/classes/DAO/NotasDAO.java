@@ -80,14 +80,15 @@ public class NotasDAO {
         }
         return false;
     }
-    public static boolean alterar(NotasDTO notasDTO) {
+    public static boolean alterar(NotasDTO notasDTO,PessoaDTO pessoaDTO) {
         try {
             Connection conn = Conexao.conectar();
-            String sql = "UPDATE notas SET conteudo = ?, titulo = ?  WHERE titulo = ?;";
+            String sql = "UPDATE nota SET conteudo = ?, titulo = ?  WHERE id_nota = ? AND id_usuario = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, notasDTO.getConteudo());
             ps.setString(2, notasDTO.getTitulo());
-            ps.setString(3, notasDTO.getTitulo());
+            ps.setInt(3, notasDTO.getId());
+            ps.setInt(4,pessoaDTO.getId());
             ps.executeUpdate();
             ps.close();
             conn.close();

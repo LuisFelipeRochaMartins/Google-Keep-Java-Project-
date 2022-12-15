@@ -25,9 +25,9 @@ public class NotasBO {
         return notasDAO.excluir(notasDTO);
     }
 
-    public boolean alterar(NotasDTO notasDTO) {
+    public boolean alterar(NotasDTO notasDTO, PessoaDTO pessoaDTO) {
         NotasDAO notasDAO = new NotasDAO();
-        return NotasDAO.alterar(notasDTO);
+        return NotasDAO.alterar(notasDTO, pessoaDTO);
     }
 
     public List<NotasDTO> pesquisarTodas(PessoaDTO PessoaDTO){

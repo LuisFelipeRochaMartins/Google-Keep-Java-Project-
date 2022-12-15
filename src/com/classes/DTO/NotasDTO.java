@@ -13,6 +13,12 @@ public class NotasDTO {
     public NotasDTO (int id){
         setId(id);
     }
+
+    public NotasDTO (int id, String titulo, String conteudo){
+        setId(id);
+        setConteudo(conteudo);
+        setTitulo(titulo);
+    }
     private int id;
 
     private String titulo;
