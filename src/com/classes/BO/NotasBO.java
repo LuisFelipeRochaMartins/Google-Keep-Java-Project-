@@ -27,15 +27,31 @@ public class NotasBO {
 
     public boolean alterar(NotasDTO notasDTO, PessoaDTO pessoaDTO) {
         NotasDAO notasDAO = new NotasDAO();
-        return NotasDAO.alterar(notasDTO, pessoaDTO);
+        return notasDAO.alterar(notasDTO, pessoaDTO);
     }
 
-    public List<NotasDTO> pesquisarTodas(PessoaDTO PessoaDTO){
+    public List<NotasDTO> pesquisarNotasPorUsuario(PessoaDTO PessoaDTO){
         NotasDAO notasDAO = new NotasDAO();
-        return NotasDAO.pesquisarNotasPorUsuario(PessoaDTO);
+        return notasDAO.pesquisarNotasPorUsuario(PessoaDTO);
     }
     public boolean excluirPorUsuario(PessoaDTO pessoaDTO){
         NotasDAO notasDAO = new NotasDAO();
-        return  NotasDAO.excluirPorUsuario(pessoaDTO);
+        return  notasDAO.excluirPorUsuario(pessoaDTO);
     }
+
+    public boolean mandarLixeira(NotasDTO notasDTO ,PessoaDTO pessoaDTO){
+        NotasDAO notasDAO = new NotasDAO();
+        return notasDAO.mandarLixeira(notasDTO,pessoaDTO);
+    }
+
+    public List<NotasDTO> pesquisarNotasLixeira(PessoaDTO pessoaDTO){
+        NotasDAO notasDAO = new NotasDAO();
+        return notasDAO.pesquisarNotasLixeira(pessoaDTO);
+    }
+
+    public boolean restauraNota(NotasDTO notasDTO,PessoaDTO pessoaDTO){
+        NotasDAO notasDAO = new NotasDAO();
+        return notasDAO.restauraNota(notasDTO,pessoaDTO);
+    }
+
 }

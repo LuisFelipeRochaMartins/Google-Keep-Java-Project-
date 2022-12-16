@@ -10,7 +10,7 @@ public class MainProgram {
         int opc = 0;
         boolean cadastro = true;
         do{
-            System.out.println("0 - Para      Sair\n1 - Para    Entrar\n2 - Para Cadastrar");
+            System.out.println(Functions.MenuLogin());
             opc = input.nextInt();
             String a = input.nextLine();
         }while(opc<0 || opc>2); // validação de entrada
@@ -22,8 +22,9 @@ public class MainProgram {
                 System.out.println("         Entrando");
                 System.out.print("Por favor digite seu Email : ");
                 String email = input.nextLine();
+
                 System.out.print("Por favor digite sua Senha : ");
-                String pass = Criptografia.criptografaSenha(input.nextLine());
+                String pass = Functions.criptografaSenha(input.nextLine());
                 System.out.println("----------------------------");
 
                 PessoaBO pessoaBO = new PessoaBO();
@@ -46,7 +47,7 @@ public class MainProgram {
                 System.out.print("Digite também seu email : ");
                 String email = input.nextLine();
                 System.out.print("Por favor, digite sua senha : ");
-                String pass = Criptografia.criptografaSenha(input.nextLine());
+                String pass = Functions.criptografaSenha(input.nextLine());
                 System.out.println("----------------------------");
 
                 PessoaBO pessoaBO = new PessoaBO();
@@ -71,19 +72,16 @@ public class MainProgram {
         int opc = -1;
         while (true) {
             // verifica se o usuário possui alguma nota.
-            if (notasBO.pesquisarTodas(pessoaDTO1).isEmpty())
+            if (notasBO.pesquisarNotasPorUsuario(pessoaDTO1).isEmpty())
                 System.out.println("Nenhuma Nota Criada \n");
             else
-                System.out.println(notasBO.pesquisarTodas(pessoaDTO1));
+                System.out.println(notasBO.pesquisarNotasPorUsuario(pessoaDTO1));
             System.out.println("----------------------------");
             do {
-            System.out.println("O que deseja fazer? \n0 - Para   Encerrar  Sessão \n1 - Para    Criar     Notas \n" +
-                               "2 - Para   Excluir    Notas \n3 - Para  Atualizar   Notas\n" +
-                               "4 - Para Atualizar Cadastro\n" + "5 - Para   Apagar  Cadastro");
-                System.out.println("----------------------------");
+            System.out.println(Functions.menuColorido());
                 opc = input.nextInt();
                 String a = input.nextLine();
-            } while (opc < 0 || opc > 5);
+            } while (opc < 0 || opc > 6);
             if (opc == 0) {
                 System.out.println("        Saindo...");
                 System.out.println("----------------------------");
@@ -104,8 +102,8 @@ public class MainProgram {
                 int id = input.nextInt();
                 String b = input.nextLine();
                 NotasDTO notasDTO1 = new NotasDTO(id);
-                if (notasBO.excluir(notasDTO1)  && notasBO.existe(notasDTO1))
-                    System.out.println("Excluido com Sucesso");
+                if (notasBO.mandarLixeira(notasDTO1,pessoaDTO1))
+                    System.out.println("Nota enviada para a Lixeira");
                 else
                     System.out.println("ID da nota não inexistente!");
                 System.out.println("----------------------------\n");
@@ -128,7 +126,7 @@ public class MainProgram {
                 if (notasBO.alterar(notasDTO,pessoaDTO1) && notasBO.existe(notasDTO))
                     System.out.println("Alterado com Sucesso!");
                 else
-                    System.out.println("ID não existe");
+                    System.out.println("ID Inexiste");
                 System.out.println("----------------------------\n");
             }else if (opc == 4) {
                 int a = pessoaDTO.getId();
@@ -146,7 +144,7 @@ public class MainProgram {
                 System.out.print("Insira seu novo email : ");
                 String email = input.nextLine();
                 System.out.print("Insira sua nova senha : ");
-                String senha = Criptografia.criptografaSenha(input.nextLine());
+                String senha = Functions.criptografaSenha(input.nextLine());
 
                 System.out.println("----------------------------\n");
                 PessoaDTO pessoaDTO2 = new PessoaDTO(a, nome, sobren, email, senha);
@@ -156,7 +154,46 @@ public class MainProgram {
                 else
                     System.out.println("Não foi possível Alterar Usuário");
                 System.out.println("----------------------------");
-            } else if(opc == 5) {
+            }
+            else if(opc == 5){
+                while (true){
+                    System.out.println("        Lixeira");
+
+                    if (notasBO.pesquisarNotasLixeira(pessoaDTO1).isEmpty())
+                        System.out.println("  Nenhuma Nota Na Lixeira\n");
+                    else
+                        System.out.println(notasBO.pesquisarNotasLixeira(pessoaDTO1));
+                    System.out.println("----------------------------\n");
+                    int option = -1;
+                    do{
+                        System.out.println("O que deseja fazer ? \n0 - Sair da Lixeira \n1 - Para restaurar Nota \n" +
+                                           "2 - Para Excluir Permanentemente ");
+                        option = input.nextInt();
+                        String b = input.nextLine();
+                    }while(option < 0 || option >2);
+                    if (option == 0)
+                        break;
+                    else if(option == 1){
+                        System.out.print("Digite o ID de nota deseja Restaurar ? ");
+                        int novaNota = input.nextInt();
+                        NotasDTO nota = new NotasDTO(novaNota);
+                        if (notasBO.restauraNota(nota, pessoaDTO1))
+                            System.out.println("Restaurado com Sucesso!");
+                        else
+                            System.out.println("Não foi possível Restaurar essa Nota");
+                    }
+                    else if(option ==2){
+                        System.out.print("Digite o ID de nota deseja Apagar ? ");
+                        int novaNota = input.nextInt();
+                        NotasDTO nota = new NotasDTO(novaNota);
+                        if(notasBO.excluir(nota))
+                            System.out.println("Excluido Permanentemente! ");
+                        else
+                            System.out.println("Não foi possível Excluir essa Nota");
+                    }
+                }
+
+            }else if(opc == 6) {
                 if (pessoaBO.excluir(pessoaDTO1)) {
                     notasBO.excluirPorUsuario(pessoaDTO1);
                     System.out.println("Excluido com Sucesso!");
